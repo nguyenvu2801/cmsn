@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️🍋🥭</title>
+<style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#fffbe6,#fff0e6);display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden;}
+#envelope-container{cursor:pointer;text-align:center;transition:7s;}
+#envelope{width:260px;height:180px;background:#fcf0ba;border:2px solid #ffb74d;position:relative;}
+#envelope:before{content:"";position:absolute;top:0;left:0;width:0;height:0;border-left:130px solid transparent;border-right:130px solid transparent;border-bottom:90px solid #ffb74d;}
+#envelope:after{content:"";position:absolute;bottom:0;left:0;width:0;height:0;border-left:130px solid transparent;border-right:130px solid transparent;border-top:90px solid #ffd54f;}
+#open-text{margin-top:15px;color:#ffb74d;font-size:20px;font-weight:bold;animation:blink 1.5s infinite;}
+@keyframes blink{50%{opacity:0.3;}}
+#letter{position:absolute;top:100%;width:240px;background:#fff8e1;padding:20px;border:2px solid #ffb74d;text-align:center;font-size:22px;opacity:0;transition:0.6s;}
+#question-scene{display:none;flex-direction:column;align-items:center;gap:20px;text-align:center;}
+#question{font-size:28px;color:#ffb74d;font-weight:bold;}
+#buttons{display:flex;gap:25px;}
+button{padding:12px 24px;font-size:18px;border:none;border-radius:10px;cursor:pointer;}
+#yes-btn{background:#ffb74d;color:white;}
+#no-btn{background:#ffd54f;position:relative;}
+.slide{position:absolute;width:100%;height:100%;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;border-radius:20px;animation:fadeIn 1s ease forwards;background:linear-gradient(135deg,#fffde7,#fff3e0);}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+h1{color:#ffa726;margin-bottom:15px;font-size:2.2em;}
+p{font-size:1.3em;color:#ffb74d;margin-bottom:25px;}
+.next-btn{background:#ffd54f;color:#fff;padding:10px 20px;border-radius:10px;cursor:pointer;transition:0.3s;margin-top:15px;}
+.next-btn:hover{background:#ffb74d;}
+.emoji-card{font-size:3em;width:80px;height:80px;display:inline-flex;justify-content:center;align-items:center;margin:10px;cursor:pointer;background:#fff8e1;border-radius:20px;box-shadow:0 6px 12px rgba(0,0,0,0.15);transition:0.3s;}
+.emoji-card:hover{transform:scale(1.1);}
+#popup-message{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff3e0;border:3px solid #ffb74d;padding:25px 40px;border-radius:20px;font-size:1.8em;text-align:center;box-shadow:0 15px 30px rgba(0,0,0,0.3);z-index:1000;}
+</style>
+</head>
+<body>
+
+<!-- Love Letter -->
+<div id="envelope-container">
+    <div id="envelope"></div>
+    <div id="letter">Hạp pi bớt đâyyyyy 🍋🥭</div>
+    <div id="open-text">Bấm zô để mở nì 💌</div>
+</div>
+
+<!-- Question -->
+<div id="question-scene">
+    <div id="question">Do you love me and marry me? ❤️</div>
+    <div id="buttons">
+        <button id="yes-btn">Coáaaaa 🍋</button>
+        <button id="no-btn">No 🤮</button>
+    </div>
+</div>
+
+<!-- Slides -->
+<div class="slide" id="slide0">
+    <h1>Bắt lấy ikkkkk đừng đọc nữa! 🥭🍋</h1>
+    <p>Di chuyển ikkkk đã bảo đừng đọc nữa mà!</p>
+    <p>Bắt được bao nhiu rùi nì: <span id="score">0</span>/10</p>
+    <canvas id="catch-game" width="360" height="480" style="border:3px solid #ffb74d;border-radius:15px;background:#fffbe6;"></canvas>
+    <button class="next-btn" id="next-after-catch" style="display:none;">Next ➡️</button>
+</div>
+
+<div class="slide" id="slide1">
+    <h1>Trò lật thẻ nì em bic hem 🥭🍋</h1>
+    <p>Tìm ik tìm ikkkk!</p>
+    <div id="memory-container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px;"></div>
+</div>
+
+<div class="slide" id="slide2">
+    <h1>Nói nào nói theo mình nha 💌</h1>
+    <p>Type: <strong>YÊU ANHHHHHH HIHI 🥭🍋</strong></p>
+    <input type="text" id="love-input" placeholder="Nhập vào đây nì..." style="font-size:1.4em;padding:12px;width:80%;border-radius:10px;border:2px solid #ffb74d;">
+    <button class="next-btn" id="love-check">Check ❤️</button>
+</div>
+
+<div class="slide" id="slide3">
+    <h1>Connect the Dots to Make a Heart ❤️</h1>
+    <p>Click the numbers in order 1 → 20</p>
+    <canvas id="dots-game" width="360" height="480" style="border:3px solid #ffca28;border-radius:15px;background:#fffde7;"></canvas>
+</div>
+
+<div class="slide" id="slide4">
+    <h1>Hạp pi bợt đây lần nữa nhaaaaaa 🥭🍋</h1>
+    <p style="font-size:2em;">iuuuuuuuuuu em lắmmmm<br>chúc em tuổi mỡi đỡ nhọc hơn nhaaaa mọi thứ thuận lợi và we love each other more🥭<br>snhat mình chúc tiếp nha :> 🍋<br>Anh xoài của em ❤️</p>
+    <div style="font-size:7em;margin:30px;">🥭🍋❤️</div>
+</div>
+
+<div id="popup-message"></div>
+
+<script>
+// Variables for catching game (will be cleaned up properly)
+let catchInterval = null;
+let catchAnimationFrame = null;
+let catchMouseHandler = null;
+let fruits = [];
+let catchScore = 0;
+
+const envelope = document.getElementById("envelope-container");
+const letter = document.getElementById("letter");
+const questionScene = document.getElementById("question-scene");
+const noBtn = document.getElementById("no-btn");
+
+envelope.onclick = () => {
+    letter.style.top = "20%"; letter.style.opacity = "1";
+    envelope.style.opacity = "0"; envelope.style.transform = "scale(0.8)";
+    setTimeout(() => { envelope.style.display = "none"; questionScene.style.display = "flex"; }, 2000);
+};
+
+noBtn.addEventListener("mouseenter", () => {
+    const x = Math.random() * 300 - 150;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+document.getElementById("yes-btn").onclick = () => {
+    questionScene.style.display = 'none';
+    showSlide(0);
+};
+
+// Slideshow
+const slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+function showSlide(n) {
+    slides.forEach(s => s.style.display = 'none');
+    slides[n].style.display = 'flex';
+    currentSlide = n;
+
+    // === STOP CATCHING GAME WHEN LEAVING ITS SLIDE ===
+    if (n !== 0) stopCatchingGame();
+
+    // === START CATCHING GAME ONLY WHEN ON ITS SLIDE ===
+    if (n === 0) startCatchingGame();
+    
+    // Start connect-the-dots only when on that slide
+    if (n === 3) initDotsGame();
+}
+
+// Popup
+function showPopup(msg, callback = null) {
+    const p = document.getElementById('popup-message');
+    p.innerHTML = msg;
+    p.style.display = 'block';
+    setTimeout(() => {
+        p.style.display = 'none';
+        if (callback) callback();
+    }, 2500);
+}
+
+// =======================
+// CATCHING GAME - FIXED & ISOLATED
+// =======================
+function startCatchingGame() {
+    const canvas = document.getElementById('catch-game');
+    const ctx = canvas.getContext('2d');
+    let catcherX = canvas.width / 2 - 40;
+    fruits = [];
+    catchScore = 0;
+    document.getElementById('score').textContent = '0';
+
+    // Mouse move only active here
+    catchMouseHandler = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        catcherX = e.clientX - rect.left - 40;
+        if (catcherX < 0) catcherX = 0;
+        if (catcherX > canvas.width - 80) catcherX = canvas.width - 80;
+    };
+    canvas.addEventListener('mousemove', catchMouseHandler);
+
+    function spawnFruit() {
+        fruits.push({
+            x: Math.random() * (canvas.width - 60) + 30,
+            y: -60,
+            emoji: Math.random() > 0.5 ? '🥭' : '🍋',
+            speed: 2.5 + Math.random() * 2
+        });
+    }
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Basket
+        ctx.font = '70px Arial';
+        ctx.fillText('🧺', catcherX, canvas.height - 30);
+
+        // Fruits
+        fruits = fruits.filter(f => {
+            f.y += f.speed;
+            ctx.font = '45px Arial';
+            ctx.fillText(f.emoji, f.x - 20, f.y);
+
+            // Catch detection
+            if (f.y > canvas.height - 100 && f.x > catcherX - 20 && f.x < catcherX + 100) {
+                catchScore++;
+                document.getElementById('score').textContent = catchScore;
+                if (catchScore >= 10) {
+                    showPopup('Ô giỏi zị xong r nè(k thảo mai mà ơ)!!!!', () => {
+                        document.getElementById('next-after-catch').style.display = 'block';
+                    });
+                }
+                return false;
+            }
+            return f.y < canvas.height + 50;
+        });
+
+        catchAnimationFrame = requestAnimationFrame(update);
+    }
+
+    catchInterval = setInterval(spawnFruit, 800);
+    catchAnimationFrame = requestAnimationFrame(update);
+}
+
+function stopCatchingGame() {
+    if (catchInterval) clearInterval(catchInterval);
+    if (catchAnimationFrame) cancelAnimationFrame(catchAnimationFrame);
+    if (catchMouseHandler) {
+        document.getElementById('catch-game').removeEventListener('mousemove', catchMouseHandler);
+    }
+    catchInterval = catchAnimationFrame = catchMouseHandler = null;
+    fruits = [];
+}
+
+document.getElementById('next-after-catch').onclick = () => showSlide(1);
+
+// Memory Game
+const memoryEmotes = ['🥭','🍋','🐢','🍪','🍰','🥐','🍌','🐶'];
+const memoryPairs = [...memoryEmotes, ...memoryEmotes].sort(() => 0.5 - Math.random());
+let flipped = [];
+let matched = 0;
+
+memoryPairs.forEach(emoji => {
+    const card = document.createElement('div');
+    card.className = 'emoji-card';
+    card.textContent = '❓';
+    card.dataset.emoji = emoji;
+    card.onclick = () => {
+        if (card.textContent !== '❓' || flipped.length === 2) return;
+        card.textContent = emoji;
+        flipped.push(card);
+        if (flipped.length === 2) {
+            if (flipped[0].dataset.emoji === flipped[1].dataset.emoji) {
+                matched += 2;
+                flipped = [];
+                if (matched === memoryPairs.length) {
+                    showPopup('Biết mình định nói gì r đúng không hehehehe ', () => showSlide(2));
+                }
+            } else {
+                setTimeout(() => {
+                    flipped.forEach(c => c.textContent = '❓');
+                    flipped = [];
+                }, 800);
+            }
+        }
+    };
+    document.getElementById('memory-container').appendChild(card);
+});
+
+// Type the words
+document.getElementById('love-check').onclick = () => {
+    const input = document.getElementById('love-input').value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    // normalize removes accents for easier matching
+    if (input.includes('yeu anhhhhh hihi') && (input.includes('🥭') || input.includes('🍋'))) {
+        showPopup('heheheheheh iu vl ❤️', () => showSlide(3));
+    } else {
+        showPopup('nói ik nèo hem có k qua đc âu hihi! 🥭🍋', null);
+    }
+};
+
+// Connect the Dots - Heart
+function initDotsGame() {
+    const canvas = document.getElementById('dots-game');
+    const ctx = canvas.getContext('2d');
+    const dots = [];
+    const totalDots = 20;
+    let connected = 0;
+    let lastPoint = null;
+
+    // Generate heart points
+    for (let i = 0; i <= totalDots; i++) {
+        const t = i / totalDots * Math.PI * 2;
+        const x = 180 + 70 * (16 * Math.pow(Math.sin(t), 3));
+        const y = 240 - 70 * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        dots.push({x, y, num: i+1, drawn: false});
+    }
+
+    // Draw dots
+    dots.forEach((d, i) => {
+        ctx.font = '20px Arial';
+        ctx.fillStyle = '#ffb74d';
+        ctx.fillText(d.num, d.x - 10, d.y + 10);
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, 15, 0, Math.PI*2);
+        ctx.fillStyle = i % 2 === 0 ? '#ffd54f' : '#fff176';
+        ctx.fill();
+        ctx.strokeStyle = '#ffb74d';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    });
+
+    canvas.onclick = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+
+        const dot = dots.find(d => !d.drawn && d.num === connected + 1 && Math.hypot(d.x - mx, d.y - my) < 30);
+        if (dot) {
+            dot.drawn = true;
+            connected++;
+
+            if (lastPoint) {
+                ctx.beginPath();
+                ctx.moveTo(lastPoint.x, lastPoint.y);
+                ctx.lineTo(dot.x, dot.y);
+                ctx.strokeStyle = '#ff6f00';
+                ctx.lineWidth = 6;
+                ctx.stroke();
+            }
+            lastPoint = dot;
+
+            // Replace number with emoji
+            ctx.clearRect(dot.x - 25, dot.y - 40, 50, 50);
+            ctx.font = '50px Arial';
+            ctx.fillText(dot.num % 2 === 0 ? '🥭' : '🍋', dot.x - 25, dot.y + 15);
+
+            if (connected === totalDots) {
+                showPopup('Perfect heart! I love you forever! 🥭🍋❤️', () => setTimeout(() => showSlide(4), 800));
+            }
+        }
+    };
+}
+
+</script>
+</body>
+</html>
